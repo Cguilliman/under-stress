@@ -1,0 +1,40 @@
+version: '3.9'
+
+services:
+
+  server:
+    container_name: under-stress-server
+    build: ./server
+#    build:
+#      context: ./
+#      dockerfile: ./server/Dockerfile
+    volumes:
+      - ./server:/service/app
+    ports:
+      - "8000:8000"
+    expose:
+      - 8000
+    depends_on:
+      - postgres
+    networks:
+      - under-stress-network
+
+  postgres:
+    container_name: under-stress-postgres
+    image: postgres:14.5
+    environment:
+      POSTGRES_DB: under-stress
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - platform_db:/var/lib/postgresql
+    networks:
+      - under-stress-network
+
+volumes:
+  platform_db:
+
+networks:
+  under-stress-network:

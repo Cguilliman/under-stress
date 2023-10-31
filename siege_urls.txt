@@ -1,0 +1,3 @@
+http://localhost:8000/products/list/
+http://localhost:8000/products/get/155/
+http://localhost:8000/products/create/ POST {"title": "Some title"}
